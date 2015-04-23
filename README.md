@@ -1,12 +1,12 @@
 # 7-Databases-Notes
 
-The notes of learning databases in <Seven Databases in Seven Weeks>.  
+The notes of learning databases in *[Seven Databases in Seven Weeks][1]*.  
 
 ---
 
-#### List of db
+### List of db
 
-1. [PostgreSQL](1) (Updating)
+1. [PostgreSQL][2] (Updating)
 2. Riak (Waiting)
 3. HBase (Waiting)
 4. MongoDB (Waiting)
@@ -15,4 +15,5 @@ The notes of learning databases in <Seven Databases in Seven Weeks>.
 7. Redis (Waiting)
 
 
- [1]:./PostgreSQL.md
+ [1]:http://www.amazon.com/Seven-Databases-Weeks-Modern-Movement/dp/1934356921
+ [2]:./PostgreSQL.md
