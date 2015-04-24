@@ -4,6 +4,7 @@ PostgreSQL Learning Notes
 
 Doc: http://www.postgresql.org/docs/  
 PostgreSQL Python tutorial: http://zetcode.com/db/postgresqlpythontutorial/  
+PostgreSQL Tutorial: http://www.tutorialspoint.com/postgresql/index.htm  
 *<Seven Databases in Seven Weeks>*  
 
 ### Install
@@ -73,7 +74,7 @@ createdb mydb
 ### Create Extension in the Database
 
 Refer at this: http://stackoverflow.com/questions/1564056/how-do-i-import-modules-or-install-extensions-in-postgres-8-4  
-[The cube module includes a GiST index operator class for cube values.](http://www.postgresql.org/docs/9.1/static/cube.html)  
+([The cube module includes a GiST index operator class for cube values.](http://www.postgresql.org/docs/9.1/static/cube.html))  
 
 ```sql
 # into Postgres prompt (psql)
@@ -113,6 +114,56 @@ List:
 ### Window Function
 
 Nice blog: [Understanding Window Functions](http://tapoueh.org/blog/2013/08/20-Window-Functions)  
+
+### TRANSACTION
+
+- BEGIN TRANSACTION: to start a transaction.
+- COMMIT: to save the changes, alternatively you can use END TRANSACTION command.
+- ROLLBACK: to rollback the changes.  
+
+The ROLLBACK command can only be used to undo transactions since the last COMMIT or ROLLBACK command was issued.  
+
+```sql
+# into Postgres prompt (psql)
+BEGIN;
+DELETE FROM COMPANY WHERE AGE = 25;
+ROLLBACK; # it will rollback and change anything
+```
+
+### String Match
+
+#### In SQL
+
+1. LILE, ILIKE
+2. Regex: `~`(match), `!~`(un match), `~*`(ignore case)
+
+#### Distance Match
+
+Use `fuzzystrmatch` lib: `levenshtein(str1, str2)`.  
+
+```sql
+SELECT id, title FROM movies
+WHERE levenshtein(lower(title), lower('day nigt')) <= 3;
+```
+
+#### Trigram
+
+This will get all 'three continuous char'.  
+Use `pg_trgm` lib: `show_trgm(str)`  
+
+```sql
+# test trigram
+SELECT show_trgm('Avatre');
+
+# use GIST[Generalized Index Search Tree] to create trigram index
+CREATE INDEX movies_title_trigram ON movies
+USING gist (title gist_trgm_ops);
+```
+
+#### metaphone
+
+Match by pronounciation.  
+Use `fuzzystrmatch` lib: `metaphone`
 
 ---
 *(Updating)*
